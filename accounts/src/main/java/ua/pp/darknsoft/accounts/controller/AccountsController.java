@@ -17,7 +17,9 @@ public class AccountsController {
     @GetMapping("/accounts")
     public List<AccountsDto> getAccounts() {
         AccountsDto accountsDto = new AccountsDto();
-        accountsDto.setHello("Hello");
+        accountsDto.setAccountNumber(1234567890L);
+        accountsDto.setAccountType("Savings");
+        accountsDto.setBranchAddress("123 New York");
         return List.of(accountsDto);
     }
 }
