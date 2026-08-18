@@ -1,4 +1,4 @@
-package ua.pp.darknsoft.accounts.constants;
+package ua.pp.darknsoft.accounts.constant;
 
 /**
  * Constants for Accounts service.

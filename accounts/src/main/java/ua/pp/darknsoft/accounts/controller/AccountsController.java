@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.pp.darknsoft.accounts.constants.AccountsConstants;
+import ua.pp.darknsoft.accounts.constant.AccountsConstants;
 import ua.pp.darknsoft.accounts.dto.AccountsDto;
 import ua.pp.darknsoft.accounts.dto.CustomerDto;
 import ua.pp.darknsoft.accounts.dto.ResponseDto;

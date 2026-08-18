@@ -3,10 +3,11 @@ package ua.pp.darknsoft.accounts.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.pp.darknsoft.accounts.constants.AccountsConstants;
+import ua.pp.darknsoft.accounts.constant.AccountsConstants;
 import ua.pp.darknsoft.accounts.dto.CustomerDto;
 import ua.pp.darknsoft.accounts.entity.Accounts;
 import ua.pp.darknsoft.accounts.entity.Customer;
+import ua.pp.darknsoft.accounts.exception.CustomerAlreadyExistsException;
 import ua.pp.darknsoft.accounts.mapper.CustomerMapper;
 import ua.pp.darknsoft.accounts.repository.AccountRepository;
 import ua.pp.darknsoft.accounts.repository.CustomerRepository;
@@ -34,7 +35,7 @@ public class AccountsServiceImpl implements IAccountsService {
         Customer customer = CustomerMapper.mapToCustomer(customerDto, new Customer());
         Optional<Customer> optionalCustomer = customerRepository.findByMobileNumber(customerDto.getMobileNumber());
         if (optionalCustomer.isPresent()) {
-            throw new RuntimeException("Customer already registered with given mobileNumber "
+            throw new CustomerAlreadyExistsException("Customer already registered with given mobileNumber "
                     + customerDto.getMobileNumber());
         }
         Customer savedCustomer = customerRepository.save(customer);
