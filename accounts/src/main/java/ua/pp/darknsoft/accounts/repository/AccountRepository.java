@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ua.pp.darknsoft.accounts.entity.Accounts;
 
 @Repository
-public interface AccountsRepository extends JpaRepository<Accounts, Long> {
+public interface AccountRepository extends JpaRepository<Accounts, Long> {
 }

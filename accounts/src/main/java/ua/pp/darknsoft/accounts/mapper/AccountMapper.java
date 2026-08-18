@@ -8,9 +8,9 @@ import ua.pp.darknsoft.accounts.entity.Accounts;
  * @author AndrewDark
  * @since 1.0
  */
-public final class AccountsMapper {
+public final class AccountMapper {
 
-    private AccountsMapper() {
+    private AccountMapper() {
         // this class is not instantiable
         throw new AssertionError("Utility class");
     }
