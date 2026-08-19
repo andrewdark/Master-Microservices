@@ -1,6 +1,7 @@
 package ua.pp.darknsoft.accounts.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,13 +26,12 @@ import java.util.List;
 public class AccountsController {
     private IAccountsService iAccountsService;
 
-    @GetMapping("/accounts")
-    public List<AccountsDto> getAccounts() {
-        AccountsDto accountsDto = new AccountsDto();
-        accountsDto.setAccountNumber(1234567890L);
-        accountsDto.setAccountType("Savings");
-        accountsDto.setBranchAddress("123 New York");
-        return List.of(accountsDto);
+    @GetMapping("/fetch")
+    public ResponseEntity<CustomerDto> fetchAccountDetails(@RequestParam
+                                                           @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
+                                                           String mobileNumber) {
+        CustomerDto customerDto = iAccountsService.fetchAccount(mobileNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(customerDto);
     }
 
     @PostMapping("/create")

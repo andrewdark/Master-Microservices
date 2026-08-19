@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.accounts.constant.AccountsConstants;
+import ua.pp.darknsoft.accounts.dto.AccountsDto;
 import ua.pp.darknsoft.accounts.dto.CustomerDto;
 import ua.pp.darknsoft.accounts.entity.Accounts;
 import ua.pp.darknsoft.accounts.entity.Customer;
 import ua.pp.darknsoft.accounts.exception.CustomerAlreadyExistsException;
+import ua.pp.darknsoft.accounts.exception.ResourceNotFoundException;
+import ua.pp.darknsoft.accounts.mapper.AccountMapper;
 import ua.pp.darknsoft.accounts.mapper.CustomerMapper;
 import ua.pp.darknsoft.accounts.repository.AccountRepository;
 import ua.pp.darknsoft.accounts.repository.CustomerRepository;
@@ -23,11 +26,6 @@ public class AccountsServiceImpl implements IAccountsService {
 
     private final CustomerRepository customerRepository;
     private final AccountRepository accountRepository;
-
-    @Override
-    public CustomerDto fetchAccount(String mobileNumber) {
-        return null;
-    }
 
     @Override
     @Transactional
@@ -59,5 +57,21 @@ public class AccountsServiceImpl implements IAccountsService {
         return newAccount;
     }
 
+    /**
+     * @param mobileNumber - Input Mobile Number
+     * @return Accounts Details based on a given mobileNumber
+     */
+    @Override
+    public CustomerDto fetchAccount(String mobileNumber) {
+        Customer customer = customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotFoundException("Customer", "mobileNumber", mobileNumber)
+        );
+        Accounts accounts = accountRepository.findByCustomerId(customer.getCustomerId()).orElseThrow(
+                () -> new ResourceNotFoundException("Account", "customerId", customer.getCustomerId().toString())
+        );
+        CustomerDto customerDto = CustomerMapper.mapToCustomerDto(customer, new CustomerDto());
+        customerDto.setAccountsDto(AccountMapper.mapToAccountsDto(accounts, new AccountsDto()));
+        return customerDto;
+    }
 
 }
