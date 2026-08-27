@@ -13,7 +13,7 @@ public class CustomerDto {
     private String name;
 
     @NotEmpty(message = "Email address can not be a null or empty")
-    @Email(message = "Email address should be a valid value")
+    @Email(regexp = "^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]{2,}\\.)+[A-Za-z]{2,}$", message = "Email address should be a valid value")
     private String email;
 
     @Pattern(regexp = "(^$|[0-9]{10})", message = "Mobile number must be 10 digits")

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ua.pp.darknsoft.accounts.constant.AccountsConstants;
 import ua.pp.darknsoft.accounts.dto.AccountsDto;
@@ -23,6 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path="/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 @AllArgsConstructor
+@Validated
 public class AccountsController {
     private IAccountsService iAccountsService;
 
