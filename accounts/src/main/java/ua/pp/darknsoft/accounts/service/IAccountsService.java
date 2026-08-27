@@ -1,6 +1,7 @@
 package ua.pp.darknsoft.accounts.service;
 
 import ua.pp.darknsoft.accounts.dto.CustomerDto;
+import ua.pp.darknsoft.accounts.exception.ResourceNotFoundException;
 
 public interface IAccountsService {
     /**
@@ -23,5 +24,12 @@ public interface IAccountsService {
      * @param customerDto - CustomerDto Object
      * @return boolean indicating if the update of Account details is successful or not
      */
-    boolean updateAccount(CustomerDto customerDto);
+    boolean updateAccount(CustomerDto customerDto) throws ResourceNotFoundException;
+
+    /**
+     *
+     * @param mobileNumber - Input Mobile Number
+     * @return boolean indicating if the delete of Account details is successful or not
+     */
+    boolean deleteAccount(String mobileNumber) throws ResourceNotFoundException;
 }
