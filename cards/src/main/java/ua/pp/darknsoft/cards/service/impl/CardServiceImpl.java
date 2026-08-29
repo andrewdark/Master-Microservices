@@ -72,7 +72,11 @@ public class CardServiceImpl implements ICardService {
     @Override
     @Transactional
     public boolean updateCard(CardDto cardDto) {
-        return false;
+        Card cards = cardRepository.findByCardNumber(cardDto.getCardNumber()).orElseThrow(
+                () -> new ResourceNotFoundException("Card", "CardNumber", cardDto.getCardNumber()));
+        CardMapper.mapToCards(cardDto, cards);
+        cardRepository.save(cards);
+        return true;
     }
 
     /**
@@ -82,6 +86,10 @@ public class CardServiceImpl implements ICardService {
     @Override
     @Transactional
     public boolean deleteCard(String mobileNumber) {
-        return false;
+        Card cards = cardRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotFoundException("Card", "mobileNumber", mobileNumber)
+        );
+        cardRepository.deleteById(cards.getCardId());
+        return true;
     }
 }

@@ -34,7 +34,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             String validationMsg = error.getDefaultMessage();
             validationErrors.put(fieldName, validationMsg);
         });
-        System.out.println("Ololo");
         return new ResponseEntity<>(validationErrors, HttpStatus.BAD_REQUEST);
     }
 
