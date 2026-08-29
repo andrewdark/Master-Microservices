@@ -1,6 +1,6 @@
 package ua.pp.darknsoft.cards.audit;
 
-import lombok.NonNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
 
