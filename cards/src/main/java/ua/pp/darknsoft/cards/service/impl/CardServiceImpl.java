@@ -3,17 +3,24 @@ package ua.pp.darknsoft.cards.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.pp.darknsoft.cards.constant.CardConstants;
 import ua.pp.darknsoft.cards.dto.CardDto;
 import ua.pp.darknsoft.cards.entity.Card;
+import ua.pp.darknsoft.cards.exception.CardAlreadyExistsException;
+import ua.pp.darknsoft.cards.exception.ResourceNotFoundException;
+import ua.pp.darknsoft.cards.mapper.CardMapper;
 import ua.pp.darknsoft.cards.repository.CardRepository;
 import ua.pp.darknsoft.cards.service.ICardService;
+
+import java.util.Optional;
+import java.util.Random;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class CardsServiceImpl implements ICardService {
+public class CardServiceImpl implements ICardService {
 
-    private CardRepository cardRepository;
+    private final CardRepository cardRepository;
 
     /**
      * @param mobileNumber - Mobile Number of the Customer
@@ -21,7 +28,11 @@ public class CardsServiceImpl implements ICardService {
     @Override
     @Transactional
     public void createCard(String mobileNumber) {
-        //cardRepository.save(createNewCard(mobileNumber));
+        Optional<Card> optionalCards = cardRepository.findByMobileNumber(mobileNumber);
+        if (optionalCards.isPresent()) {
+            throw new CardAlreadyExistsException("Card already registered with given mobileNumber " + mobileNumber);
+        }
+        cardRepository.save(createNewCard(mobileNumber));
     }
 
     /**
@@ -29,7 +40,15 @@ public class CardsServiceImpl implements ICardService {
      * @return the new card details
      */
     private Card createNewCard(String mobileNumber) {
-        return new Card();
+        Card newCard = new Card();
+        long randomCardNumber = 100000000000L + new Random().nextInt(900000000);
+        newCard.setCardNumber(Long.toString(randomCardNumber));
+        newCard.setMobileNumber(mobileNumber);
+        newCard.setCardType(CardConstants.CREDIT_CARD);
+        newCard.setTotalLimit(CardConstants.NEW_CARD_LIMIT);
+        newCard.setAmountUsed(0);
+        newCard.setAvailableAmount(CardConstants.NEW_CARD_LIMIT);
+        return newCard;
     }
 
     /**
@@ -39,7 +58,10 @@ public class CardsServiceImpl implements ICardService {
      */
     @Override
     public CardDto fetchCard(String mobileNumber) {
-        return null;
+        Card cards = cardRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotFoundException("Card", "mobileNumber", mobileNumber)
+        );
+        return CardMapper.mapToCardsDto(cards, new CardDto());
     }
 
     /**
