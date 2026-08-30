@@ -1,4 +1,84 @@
 package ua.pp.darknsoft.loans.service.impl;
 
-public class LoansServiceImpl {
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ua.pp.darknsoft.loans.constant.LoansConstants;
+import ua.pp.darknsoft.loans.dto.LoansDto;
+import ua.pp.darknsoft.loans.entity.Loans;
+import ua.pp.darknsoft.loans.repository.LoansRepository;
+import ua.pp.darknsoft.loans.service.ILoansService;
+
+import java.util.Random;
+
+
+/**
+ * Service class for Loan related operations.
+ *
+ * @author Andrew Dark
+ * @since 1.0
+ */
+@Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
+public class LoansServiceImpl implements ILoansService {
+
+    private final LoansRepository loansRepository;
+
+    /**
+     * @param mobileNumber - Mobile Number of the Customer
+     */
+    @Override
+    @Transactional
+    public void createLoan(String mobileNumber) {
+
+    }
+
+    /**
+     * @param mobileNumber - Mobile Number of the Customer
+     * @return the new loan details
+     */
+    private Loans createNewLoan(String mobileNumber) {
+        Loans newLoan = new Loans();
+        long randomLoanNumber = 100000000000L + new Random().nextInt(900000000);
+        newLoan.setLoanNumber(Long.toString(randomLoanNumber));
+        newLoan.setMobileNumber(mobileNumber);
+        newLoan.setLoanType(LoansConstants.HOME_LOAN);
+        newLoan.setTotalLoan(LoansConstants.NEW_LOAN_LIMIT);
+        newLoan.setAmountPaid(0);
+        newLoan.setOutstandingAmount(LoansConstants.NEW_LOAN_LIMIT);
+        return newLoan;
+    }
+
+    /**
+     *
+     * @param mobileNumber - Input mobile Number
+     * @return Loan Details based on a given mobileNumber
+     */
+    @Override
+    public LoansDto fetchLoan(String mobileNumber) {
+        return null;
+    }
+
+    /**
+     *
+     * @param loansDto - LoansDto Object
+     * @return boolean indicating if the update of loan details is successful or not
+     */
+    @Override
+    @Transactional
+    public boolean updateLoan(LoansDto loansDto) {
+        return false;
+    }
+
+    /**
+     * @param mobileNumber - Input MobileNumber
+     * @return boolean indicating if the delete of loan details is successful or not
+     */
+    @Override
+    @Transactional
+    public boolean deleteLoan(String mobileNumber) {
+        return false;
+    }
 }
