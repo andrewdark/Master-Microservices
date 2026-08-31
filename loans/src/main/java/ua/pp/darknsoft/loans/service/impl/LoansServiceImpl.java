@@ -7,9 +7,13 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.pp.darknsoft.loans.constant.LoansConstants;
 import ua.pp.darknsoft.loans.dto.LoansDto;
 import ua.pp.darknsoft.loans.entity.Loans;
+import ua.pp.darknsoft.loans.exception.LoanAlreadyExistsException;
+import ua.pp.darknsoft.loans.exception.ResourceNotFoundException;
+import ua.pp.darknsoft.loans.mapper.LoansMapper;
 import ua.pp.darknsoft.loans.repository.LoansRepository;
 import ua.pp.darknsoft.loans.service.ILoansService;
 
+import java.util.Optional;
 import java.util.Random;
 
 
@@ -32,7 +36,11 @@ public class LoansServiceImpl implements ILoansService {
     @Override
     @Transactional
     public void createLoan(String mobileNumber) {
-
+        Optional<Loans> optionalLoans= loansRepository.findByMobileNumber(mobileNumber);
+        if(optionalLoans.isPresent()){
+            throw new LoanAlreadyExistsException("Loan already registered with given mobileNumber "+mobileNumber);
+        }
+        loansRepository.save(createNewLoan(mobileNumber));
     }
 
     /**
@@ -58,7 +66,10 @@ public class LoansServiceImpl implements ILoansService {
      */
     @Override
     public LoansDto fetchLoan(String mobileNumber) {
-        return null;
+        Loans loans = loansRepository.findByMobileNumber(mobileNumber).orElseThrow(
+                () -> new ResourceNotFoundException("Loan", "mobileNumber", mobileNumber)
+        );
+        return LoansMapper.mapToLoansDto(loans, new LoansDto());
     }
 
     /**
