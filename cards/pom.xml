@@ -11,7 +11,8 @@
 	<groupId>ua.pp.darknsoft</groupId>
 	<artifactId>cards</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
+	<packaging>jar</packaging>
+	<name>cards</name>
 	<description/>
 	<url/>
 	<licenses>
