@@ -93,12 +93,24 @@
 	<build>
 		<plugins>
 			<plugin>
+				<!--mvn spring-boot:build-image-->
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
 						<name>andrewdark/${project.artifactId}:s4</name>
 					</image>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!--mvn compile jib:dockerBuild-->
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.5.2</version>
+				<configuration>
+					<to>
+						<image>andrewdark/${project.artifactId}:s4</image>
+					</to>
 				</configuration>
 			</plugin>
 			<plugin>
