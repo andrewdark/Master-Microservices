@@ -93,13 +93,15 @@
 	<build>
 		<plugins>
 			<plugin>
-				<!--mvn spring-boot:build-image-->
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<image>
-						<name>andrewdark/${project.artifactId}:s4</name>
-					</image>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 			<plugin>
