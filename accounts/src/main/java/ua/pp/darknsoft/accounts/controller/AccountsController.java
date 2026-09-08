@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ua.pp.darknsoft.accounts.constant.AccountsConstants;
+import ua.pp.darknsoft.accounts.dto.AccountsContactInfoRDto;
 import ua.pp.darknsoft.accounts.dto.CustomerDto;
 import ua.pp.darknsoft.accounts.dto.ErrorResponseDto;
 import ua.pp.darknsoft.accounts.dto.ResponseDto;
@@ -45,6 +46,8 @@ public class AccountsController {
     private String buildVersion;
 
     private final Environment environment;
+
+    private final AccountsContactInfoRDto accountsContactInfoRDto;
 
     private final IAccountsService iAccountsService;
 
@@ -213,4 +216,24 @@ public class AccountsController {
                 .status(HttpStatus.OK)
                 .body(environment.getProperty("JAVA_HOME"));
     }
+
+    @Operation(summary = "Get Contact Info", description = "Contact Info details that can be reached out in case of any issues")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(schema = @Schema(implementation = ErrorResponseDto.class))
+            )
+    })
+    @GetMapping("/contact-info")
+    public ResponseEntity<AccountsContactInfoRDto> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(accountsContactInfoRDto);
+    }
+
 }
