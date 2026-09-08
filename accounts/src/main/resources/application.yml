@@ -2,6 +2,13 @@
 server:
   port: 8081
 spring:
+  config:
+    import:
+      - "application_qa.yml"
+      - "application_prod.yml"
+  profiles:
+    active:
+      - "qa"
   application:
     name: accounts
   datasource:
@@ -19,7 +26,7 @@ spring:
     show-sql: true
 
 build:
-  version: "2.0"
+  version: "3.0"
 
 accounts:
   message: "Welcome to DarkyBank accounts related local APIs "
