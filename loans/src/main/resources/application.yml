@@ -16,8 +16,8 @@ spring:
     show-sql: true
   config:
     import:
-      - "application_qa.yaml"
-      - "application_prod.yaml"
+      - "application_qa.yml"
+      - "application_prod.yml"
   profiles:
     active:
       - "qa"
@@ -25,8 +25,8 @@ spring:
 build:
   version: "3.0"
 
-cards:
-  message: "Welcome to DarkyBank cards related local APIs "
+loans:
+  message: "Welcome to DarkyBank loans related local APIs "
   contactDetails:
     name: "Dragos Lech - Developer"
     email: "dragos@darknsoft.pp.ua"

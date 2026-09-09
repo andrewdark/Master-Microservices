@@ -6,8 +6,8 @@ spring:
 build:
   version: "1.0"
 
-accounts:
-  message: "Welcome to DarkyBank accounts related local APIs "
+loans:
+  message: "Welcome to DarkyBank loans related local APIs "
   contactDetails:
     name: "Serhio Fedan - QA Lead"
     email: "Fedan@darknsoft.pp.ua"
