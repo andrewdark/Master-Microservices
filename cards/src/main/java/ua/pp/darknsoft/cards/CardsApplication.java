@@ -9,10 +9,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import ua.pp.darknsoft.cards.dto.CardsContactInfoRDto;
 
 @SpringBootApplication
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
-@EnableConfigurationProperties(value = {CardsApplication.class})
+@EnableConfigurationProperties(value = {CardsContactInfoRDto.class})
 @OpenAPIDefinition(
         info = @Info(
                 title = "Cards microservice REST API Documentation",
