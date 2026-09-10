@@ -1,5 +1,7 @@
 package ua.pp.darknsoft.accounts.dto;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.Map;
 
 
 /**
- * This record class is used for storing configuration properties related to accounts.
+ * This class is used for storing configuration properties related to accounts.
  * In order to use this class, you need to enable the @EnableConfigurationProperties annotation
  * in your spring boot main class with the value of AccountsContactInfoRDto.class.
  * For example:
@@ -15,5 +17,10 @@ import java.util.Map;
  * The properties will be loaded from the application.yaml file.
  */
 @ConfigurationProperties(prefix = "accounts")
-public record AccountsContactInfoRDto(String message, Map<String, String> contactDetails, List<String> onCallSupport) {
+@Getter
+@Setter
+public class AccountsContactInfoRDto {
+    private String message;
+    private Map<String, String> contactDetails;
+    private List<String> onCallSupport;
 }
