@@ -4,7 +4,7 @@ spring:
   application:
     name: loans
   profiles:
-    active: "default"
+    active: prod
   config:
     import: "optional:configserver:http://localhost:8071"
   datasource:

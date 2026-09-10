@@ -12,7 +12,7 @@ import java.util.Map;
  * in your spring boot main class with the value of AccountsContactInfoRDto.class.
  * For example:
  * {@code @EnableConfigurationProperties(value = {AccountsContactInfoRDto.class})}
- * The properties will be loaded from the application.yml file.
+ * The properties will be loaded from the application.yaml file.
  */
 @ConfigurationProperties(prefix = "accounts")
 public record AccountsContactInfoRDto(String message, Map<String, String> contactDetails, List<String> onCallSupport) {
