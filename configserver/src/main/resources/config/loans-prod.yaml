@@ -1,0 +1,11 @@
+build:
+  version: "2.0"
+
+loans:
+  message: "Welcome to DarkyBank loans related local APIs "
+  contactDetails:
+    name: "Andrew Dark - Owner"
+    email: "AndrewDark@darknsoft.pp.ua"
+  onCallSupport:
+    - (093) 418-1234
+    - (066) 418-5678
