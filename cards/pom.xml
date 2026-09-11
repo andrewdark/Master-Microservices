@@ -131,7 +131,7 @@
                 <version>3.5.2</version>
                 <configuration>
                     <to>
-                        <image>andrewdark/${project.artifactId}:s4</image>
+                        <image>andrewdark/${project.artifactId}:s6</image>
                     </to>
                 </configuration>
             </plugin>
