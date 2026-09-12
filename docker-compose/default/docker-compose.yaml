@@ -6,7 +6,7 @@ services:
     environment:
       MYSQL_DATABASE: accountsdb
     extends:
-      file: common-config.yml
+      file: common-config.yaml
       service: microservice-db-config
 
   loansdb:
@@ -16,7 +16,7 @@ services:
     environment:
       MYSQL_DATABASE: loansdb
     extends:
-      file: common-config.yml
+      file: common-config.yaml
       service: microservice-db-config
 
   cardsdb:
@@ -26,7 +26,7 @@ services:
     environment:
       MYSQL_DATABASE: cardsdb
     extends:
-      file: common-config.yml
+      file: common-config.yaml
       service: microservice-db-config
 
   rabbit:
@@ -46,7 +46,7 @@ services:
       service: network-deploy-service
 
   configserver:
-    image: "andrewdark/configserver:s6"
+    image: "andrewdark/configserver:s7"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -64,7 +64,7 @@ services:
       service: microservice-base-config
 
   accounts:
-    image: "andrewdark/accounts:s6"
+    image: "andrewdark/accounts:s7"
     container_name: accounts-ms
     ports:
       - "8081:8081"
@@ -73,13 +73,13 @@ services:
         condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: "accounts"
-      SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3301/accountsdb"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3306/accountsdb"
     extends:
       file: common-config.yaml
       service: microservice-configserver-config
 
   loans:
-    image: "andrewdark/loans:s6"
+    image: "andrewdark/loans:s7"
     container_name: loans-ms
     ports:
       - "8083:8083"
@@ -88,13 +88,13 @@ services:
         condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: "loans"
-      SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3303/loansdb"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://loansdb:3306/loansdb"
     extends:
       file: common-config.yaml
       service: microservice-configserver-config
 
   cards:
-    image: "andrewdark/cards:s6"
+    image: "andrewdark/cards:s7"
     container_name: cards-ms
     ports:
       - "8082:8082"
@@ -103,7 +103,7 @@ services:
         condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: "cards"
-      SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3302/cardsdb"
+      SPRING_DATASOURCE_URL: "jdbc:mysql://cardsdb:3306/cardsdb"
     extends:
       file: common-config.yaml
       service: microservice-configserver-config
