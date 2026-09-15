@@ -1,6 +1,6 @@
 services:
   configserver:
-    image: "andrewdark/configserver:s8"
+    image: "andrewdark/configserver:s9"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -15,7 +15,7 @@ services:
       service: microservice-base-config
 
   eurekaserver:
-    image: "andrewdark/eurekaserver:s8"
+    image: "andrewdark/eurekaserver:s9"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -35,7 +35,7 @@ services:
       SPRING_APPLICATION_NAME: "eurekaserver"
 
   accounts:
-    image: "andrewdark/accounts:s8"
+    image: "andrewdark/accounts:s9"
     container_name: accounts-ms
     ports:
       - "8081:8081"
@@ -51,7 +51,7 @@ services:
       service: microservice-eureka-config
 
   loans01:
-    image: "andrewdark/loans:s8"
+    image: "andrewdark/loans:s9"
     container_name: loans-ms-01
     ports:
       - "8083:8083"
@@ -67,7 +67,7 @@ services:
       service: microservice-eureka-config
 
   loans02:
-    image: "andrewdark/loans:s8"
+    image: "andrewdark/loans:s9"
     container_name: loans-ms-02
     ports:
       - "8093:8083"
@@ -82,7 +82,7 @@ services:
       file: common-config.yaml
       service: microservice-eureka-config
   cards:
-    image: "andrewdark/cards:s8"
+    image: "andrewdark/cards:s9"
     container_name: cards-ms
     ports:
       - "8082:8082"
