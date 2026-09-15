@@ -1,0 +1,11 @@
+build:
+  version: "3.0"
+
+loans:
+  message: "Welcome to DarkyBank loans related local APIs "
+  contactDetails:
+    name: "Serhio Fedan - QA Lead"
+    email: "Fedan@darknsoft.pp.ua"
+  onCallSupport:
+    - (444) 555-1234
+    - (444) 523-5678
