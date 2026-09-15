@@ -27,6 +27,10 @@ public class CustomersServiceImpl implements ICustomersService {
     private final CardsFeignClient cardsFeignClient;
     private final LoansFeignClient loansFeignClient;
 
+    /**
+     * @param mobileNumber - Input Mobile Number
+     * @return Customer Details based on a given mobileNumber
+     */
     @Override
     public CustomerDetailsDto fetchCustomerDetails(String mobileNumber) {
 
