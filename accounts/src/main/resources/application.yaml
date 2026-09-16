@@ -47,3 +47,10 @@ info:
     name: "accounts"
     description: "Darky Bank Accounts Application"
     version: "1.0.0"
+
+logging:
+  level:
+    ua:
+      pp:
+        darknsoft:
+          accounts: DEBUG
