@@ -18,6 +18,8 @@ import ua.pp.darknsoft.accounts.service.ICustomersService;
 import ua.pp.darknsoft.accounts.service.client.CardsFeignClient;
 import ua.pp.darknsoft.accounts.service.client.LoansFeignClient;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class CustomersServiceImpl implements ICustomersService {
@@ -45,10 +47,14 @@ public class CustomersServiceImpl implements ICustomersService {
         customerDetailsDto.setAccountsDto(AccountMapper.mapToAccountsDto(accounts, new AccountsDto()));
 
         ResponseEntity<LoansDto> loansDtoResponseEntity = loansFeignClient.fetchLoanDetails(mobileNumber);
-        customerDetailsDto.setLoansDto(loansDtoResponseEntity.getBody());
-
+        if (Objects.nonNull(loansDtoResponseEntity)) {
+            customerDetailsDto.setLoansDto(loansDtoResponseEntity.getBody());
+        }
         ResponseEntity<CardsDto> cardsDtoResponseEntity = cardsFeignClient.fetchCardDetails(mobileNumber);
-        customerDetailsDto.setCardsDto(cardsDtoResponseEntity.getBody());
+        if (Objects.nonNull(cardsDtoResponseEntity)) {
+            customerDetailsDto.setCardsDto(cardsDtoResponseEntity.getBody());
+        }
+
         return customerDetailsDto;
     }
 }
