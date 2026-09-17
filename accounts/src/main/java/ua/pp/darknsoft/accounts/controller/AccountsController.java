@@ -1,5 +1,6 @@
 package ua.pp.darknsoft.accounts.controller;
 
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -232,11 +233,26 @@ public class AccountsController {
             )
     }
     )
+    @RateLimiter(name= "getJavaVersion", fallbackMethod = "getJavaVersionFallback")
     @GetMapping("/java-version")
     public ResponseEntity<String> getJavaVersion() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(environment.getProperty("JAVA_HOME"));
+    }
+
+    /**
+     * This is fallback method.
+     *
+     * @param throwable - contains exception details
+     * @return ResponseEntity<String> - contains version of build
+     *
+     * RateLimiter configuration is present in application.yaml file. Prop: resilience4j.ratelimiter
+     */
+    public ResponseEntity<String> getJavaVersionFallback(Throwable throwable) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("Java 21");
     }
 
     @Operation(summary = "Get Contact Info", description = "Contact Info details that can be reached out in case of any issues")
