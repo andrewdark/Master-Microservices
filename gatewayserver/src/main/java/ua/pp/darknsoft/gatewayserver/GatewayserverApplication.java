@@ -1,7 +1,12 @@
 package ua.pp.darknsoft.gatewayserver;
 
+import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
+import io.github.resilience4j.timelimiter.TimeLimiterConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4JCircuitBreakerFactory;
+import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JConfigBuilder;
+import org.springframework.cloud.client.circuitbreaker.Customizer;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
@@ -31,9 +36,9 @@ public class GatewayserverApplication {
                         .path("/darkybank/loans/**")
                         .filters(f -> f.rewritePath("/darkybank/loans/(?<segment>.*)", "/${segment}")
                                 .addResponseHeader("X-Response-Time", LocalDateTime.now().toString())
-                        .retry(retryConfig -> retryConfig.setRetries(3)
-                                .setMethods(HttpMethod.GET)
-                                .setBackoff(Duration.ofMillis(100),Duration.ofMillis(1000),2,true)))
+                                .retry(retryConfig -> retryConfig.setRetries(3)
+                                        .setMethods(HttpMethod.GET)
+                                        .setBackoff(Duration.ofMillis(100), Duration.ofMillis(1000), 2, true)))
                         .uri("lb://LOANS"))
                 .route(p -> p
                         .path("/darkybank/cards/**")
@@ -43,4 +48,18 @@ public class GatewayserverApplication {
 
 
     }
+
+    /**
+     * Customizes the default circuit breaker factory
+     * This affects the configuration [resilience4j.retry: waitDuration: 500] in dependent microservices.
+     *
+     * @return ReactiveResilience4JCircuitBreakerFactory
+     */
+    @Bean
+    public Customizer<ReactiveResilience4JCircuitBreakerFactory> defaultCustomizer() {
+        return factory -> factory.configureDefault(id -> new Resilience4JConfigBuilder(id)
+                .circuitBreakerConfig(CircuitBreakerConfig.ofDefaults())
+                .timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(4)).build()).build());
+    }
+
 }

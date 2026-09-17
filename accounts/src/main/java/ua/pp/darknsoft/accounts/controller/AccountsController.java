@@ -1,5 +1,6 @@
 package ua.pp.darknsoft.accounts.controller;
 
+import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -9,6 +10,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -37,6 +40,8 @@ import ua.pp.darknsoft.accounts.service.IAccountsService;
 @RequiredArgsConstructor
 @Validated
 public class AccountsController {
+
+    private static final Logger logger = LoggerFactory.getLogger(AccountsController.class);
 
     /**
      * Not recommended using @Value
@@ -190,11 +195,28 @@ public class AccountsController {
             )
     }
     )
+    @Retry(name = "getBuildInfo", fallbackMethod = "getBuildInfoFallback")
     @GetMapping("/build-info")
     public ResponseEntity<String> getBuildInfo() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(buildVersion);
+    }
+
+    /**
+     * This is fallback method.
+     *
+     * @param throwable - contains exception details
+     * @return ResponseEntity<String> - contains version of build
+     *
+     * Retry configuration is present in application.yaml file. Prop: resilience4j.retry
+     */
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildInfoFallBack(Throwable throwable) {
+        logger.debug("getBuildInfoFallback() method Invoked");
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("0.9");
     }
 
     @Operation(summary = "Get JAVA version Info", description = "Get JAVA version Info")
