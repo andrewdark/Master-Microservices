@@ -12,8 +12,8 @@ spring:
               enabled: false
               lowerCaseServiceId: true
           httpclient:
-            connect-timeout: 1000       # 1 секунда на TCP-з'єднання
-            response-timeout: 2s        # 2 секунди на очікування відповіді від бекенду
+            connect-timeout: 1000        # 1 секунда на TCP-з'єднання
+            response-timeout: 10s        # 10 секунди на очікування відповіді від бекенду
   data:
     redis:
       connect-timeout: 2s
