@@ -51,11 +51,11 @@ services:
     depends_on:
       - gateway
     extends:
-      file: common-config.yml
+      file: common-config.yaml
       service: network-deploy-service
 
   minio:
-    image: minio/minio:RELEASE.2025-09-07T16-13-09Z
+    image: quay.io/minio/minio:RELEASE.2025-09-07T16-13-09Z
     entrypoint:
       - sh
       - -euc
@@ -85,9 +85,9 @@ services:
     image: prom/prometheus:v3.8.0
     container_name: prometheus
     ports:
-      - "9090:9090"
+      - "9193:9090"
     volumes:
-      - ../observability/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml
+      - ../observability/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yml
     extends:
       file: common-config.yaml
       service: network-deploy-service

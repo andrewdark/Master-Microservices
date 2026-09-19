@@ -212,8 +212,7 @@ public class AccountsController {
      *
      * Retry configuration is present in application.yaml file. Prop: resilience4j.retry
      */
-    @GetMapping("/build-info")
-    public ResponseEntity<String> getBuildInfoFallBack(Throwable throwable) {
+    public ResponseEntity<String> getBuildInfoFallback(Throwable throwable) {
         logger.debug("getBuildInfoFallback() method Invoked");
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -233,7 +232,7 @@ public class AccountsController {
             )
     }
     )
-    @RateLimiter(name= "getJavaVersion", fallbackMethod = "getJavaVersionFallback")
+    @RateLimiter(name = "getJavaVersion", fallbackMethod = "getJavaVersionFallback")
     @GetMapping("/java-version")
     public ResponseEntity<String> getJavaVersion() {
         return ResponseEntity
@@ -246,7 +245,7 @@ public class AccountsController {
      *
      * @param throwable - contains exception details
      * @return ResponseEntity<String> - contains version of build
-     *
+     * <p>
      * RateLimiter configuration is present in application.yaml file. Prop: resilience4j.ratelimiter
      */
     public ResponseEntity<String> getJavaVersionFallback(Throwable throwable) {
