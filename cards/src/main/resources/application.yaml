@@ -58,3 +58,12 @@ info:
     name: "cards"
     description: "Darky Bank Cards Application"
     version: "1.0.0"
+
+logging:
+  level:
+    ua:
+      pp:
+        darknsoft:
+          accounts: DEBUG
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
