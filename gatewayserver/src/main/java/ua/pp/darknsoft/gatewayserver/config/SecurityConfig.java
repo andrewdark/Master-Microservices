@@ -23,8 +23,8 @@ public class SecurityConfig {
 
         serverHttpSecurity.authorizeExchange(exchanges -> exchanges.pathMatchers(HttpMethod.GET).permitAll()
                         .pathMatchers("/darkybank/accounts/**").hasAnyRole("ACCOUNTS")
-                        .pathMatchers("/darkybank/cards/**").authenticated()
-                        .pathMatchers("/darkybank/loans/**").authenticated())
+                        .pathMatchers("/darkybank/cards/**").hasAnyRole("CARDS")
+                        .pathMatchers("/darkybank/loans/**").hasAnyRole("LOANS"))
                 .oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec
                         .jwt(jwtSpec -> jwtSpec.jwtAuthenticationConverter(grantedAuthoritiesExtractor())));
 
