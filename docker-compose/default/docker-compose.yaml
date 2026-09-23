@@ -270,8 +270,6 @@ services:
   accounts:
     image: "andrewdark/accounts:s12"
     container_name: accounts-ms
-    ports:
-      - "8081:8081"
     depends_on:
       configserver:
         condition: service_healthy
@@ -293,8 +291,6 @@ services:
   loans:
     image: "andrewdark/loans:s12"
     container_name: loans-ms
-    ports:
-      - "8083:8083"
     depends_on:
       configserver:
         condition: service_healthy
@@ -316,8 +312,6 @@ services:
   cards:
     image: "andrewdark/cards:s12"
     container_name: cards-ms
-    ports:
-      - "8082:8082"
     depends_on:
       configserver:
         condition: service_healthy
