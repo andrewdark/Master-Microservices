@@ -120,7 +120,7 @@
 				<version>3.5.2</version>
 				<configuration>
 					<to>
-						<image>andrewdark/${project.artifactId}:s11</image>
+						<image>andrewdark/${project.artifactId}:s12</image>
 					</to>
 				</configuration>
 			</plugin>
