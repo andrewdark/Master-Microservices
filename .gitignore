@@ -55,3 +55,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Docker compose ###
+.data/
+/.data/**
