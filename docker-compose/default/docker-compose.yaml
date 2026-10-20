@@ -229,7 +229,7 @@ services:
       service: network-deploy-service
 
   configserver:
-    image: "andrewdark/configserver:s12"
+    image: "andrewdark/configserver:s13"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -247,7 +247,7 @@ services:
       OTEL_SERVICE_NAME: "configserver"
 
   eurekaserver:
-    image: "andrewdark/eurekaserver:s12"
+    image: "andrewdark/eurekaserver:s13"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -268,7 +268,7 @@ services:
       OTEL_SERVICE_NAME: "eurekaserver"
 
   accounts:
-    image: "andrewdark/accounts:s12"
+    image: "andrewdark/accounts:s13"
     container_name: accounts-ms
     depends_on:
       configserver:
@@ -289,7 +289,7 @@ services:
       service: microservice-eureka-config
 
   loans:
-    image: "andrewdark/loans:s12"
+    image: "andrewdark/loans:s13"
     container_name: loans-ms
     depends_on:
       configserver:
@@ -310,7 +310,7 @@ services:
       service: microservice-eureka-config
 
   cards:
-    image: "andrewdark/cards:s12"
+    image: "andrewdark/cards:s13"
     container_name: cards-ms
     depends_on:
       configserver:
@@ -331,7 +331,7 @@ services:
       service: microservice-eureka-config
 
   gatewayserver:
-    image: "andrewdark/gatewayserver:s12"
+    image: "andrewdark/gatewayserver:s13"
     container_name: gatewayserver-ms
     ports:
       - "8072:8072"
